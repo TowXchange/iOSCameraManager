@@ -724,18 +724,23 @@ open class CameraManager: NSObject, AVCaptureFileOutputRecordingDelegate, UIGest
         }
     }
     
-    fileprivate func _imageOrientation(forDeviceOrientation deviceOrientation: UIDeviceOrientation, isMirrored: Bool) -> UIImage.Orientation {
-        switch deviceOrientation {
-            case .landscapeLeft:
-                return isMirrored ? .upMirrored : .up
-            case .landscapeRight:
-                return isMirrored ? .downMirrored : .down
-            default:
-                break
-        }
-        
-        return isMirrored ? .leftMirrored : .right
-    }
+	fileprivate func _imageOrientation(forDeviceOrientation deviceOrientation: UIDeviceOrientation, isMirrored: Bool) -> UIImage.Orientation {
+		switch deviceOrientation {
+		case .landscapeLeft:
+			return isMirrored ? .upMirrored : .up
+		case .landscapeRight:
+			return isMirrored ? .downMirrored : .down
+		case .portrait:
+			return isMirrored ? .leftMirrored : .right
+		case .portraitUpsideDown:
+			return isMirrored ? .rightMirrored : .left
+		default:
+			break
+		}
+
+		return isMirrored ? .leftMirrored : .right
+	}
+
     
     /**
      Starts recording a video with or without voice as in the session preset.
